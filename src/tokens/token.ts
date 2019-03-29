@@ -1,4 +1,19 @@
 import Cauldron from '../cauldron';
+import { Player } from '../player';
+
+/**
+ * All the token types.
+ */
+const enum TokenType {
+    Pumpkin,
+    Spider,
+    CherryBomb,
+    Mushroom,
+    Hawkmoth,
+    GhostBreath,
+    CrowSkull,
+    Mandrake
+}
 
 /**
  * What values a token could be.
@@ -12,21 +27,31 @@ abstract class Token {
     /**
      * The name of the token.
      */
-    public readonly name: string;
+    public readonly tokenType: TokenType;
 
     /**
      * The value on the token
      */
     public readonly value: TokenValue;
 
-    constructor(name: string, value: TokenValue) {
-        this.name = name;
+    constructor(tokenType: TokenType, value: TokenValue) {
+        this.tokenType = tokenType;
         this.value = value;
     }
 
+    /**
+     * How many spaces forward the token goes.
+     */
     public spacesForward(cauldron: Cauldron): number {
         return this.value;
     }
+
+    /**
+     * Some tokens can alter the cauldron on placement.
+     */
+    public onPlace(player: Player): Player {
+        return player;
+    }
 }
 
-export { Token, TokenValue };
+export { Token, TokenValue, TokenType };

@@ -1,10 +1,20 @@
-import { Token, TokenValue } from './token';
+import { Player } from '../player';
+import { Token, TokenType, TokenValue } from './token';
 
 class Spider extends Token {
-    private static readonly SpiderName: string = 'Spider';
+    /**
+     * If any of the last two tokens were spiders gain a ruby (per spider).
+     */
+    public static onScored(player: Player): Player {
+        const cauldronTokens = player.cauldron.tokens;
+
+        const lastTwoTokens = cauldronTokens.slice(cauldronTokens.length - 2, cauldronTokens.length + 2);
+
+        return player.addRubies(lastTwoTokens.filter(token => token.tokenType === TokenType.Spider).length);
+    }
 
     constructor(value: TokenValue) {
-        super(Spider.SpiderName, value);
+        super(TokenType.Spider, value);
     }
 }
 
