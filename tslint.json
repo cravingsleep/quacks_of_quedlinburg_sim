@@ -4,6 +4,9 @@
         "tslint:recommended"
     ],
     "jsRules": {},
-    "rules": {},
+    "rules": {
+        "quotemark": [true, "single"],
+        "arrow-parens": [true, "ban-single-arg-parens"]
+    },
     "rulesDirectory": []
 }

@@ -1,8 +1,11 @@
 {
   "compilerOptions": {
-    "target": "ES2018",
-    "outDir": "./build/"
+    "target": "ES6",
+    "outDir": "./build/",
+    "moduleResolution": "node",
+    "module": "CommonJS"
   },
+  "types": ["node"],
   "include": [
     "src/**/*.ts"
   ],

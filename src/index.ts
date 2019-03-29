@@ -1,5 +1,8 @@
-const a = (b: string): string => {
-  return b + 1;
-}
+import Cauldron from './cauldron';
+import Mushroom from './tokens/mushroom';
 
-console.log(a('bob'));
+const mushroom = new Mushroom(4);
+
+const cauldron = new Cauldron();
+
+console.log(mushroom.spacesForward(cauldron));
