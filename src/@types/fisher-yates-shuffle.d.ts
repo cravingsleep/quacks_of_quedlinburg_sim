@@ -1,3 +1,5 @@
 declare module 'fisher-yates-shuffle' {
-    export default function shuffle<T>(arr: T[]): T[]
+    function shuffle<T>(arr: T[]): T[]
+
+    export default shuffle;
 }

@@ -1,11 +1,10 @@
+import shuffle from 'fisher-yates-shuffle';
 import Cauldron from './cauldron';
 import CherryBomb from './tokens/cherryBomb';
 import Pumpkin from './tokens/pumpkin';
 import Spider from './tokens/spider';
 import { Token } from './tokens/token';
 import { tail } from './util/fills';
-
-const shuffle = require('fisher-yates-shuffle');
 
 /**
  * The different types of colour a player can be.

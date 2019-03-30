@@ -3,7 +3,9 @@
     "target": "ES6",
     "outDir": "./build/",
     "moduleResolution": "node",
-    "module": "CommonJS"
+    "module": "commonjs",
+    "allowJs": true,
+    "esModuleInterop": true
   },
   "types": ["node"],
   "include": [
