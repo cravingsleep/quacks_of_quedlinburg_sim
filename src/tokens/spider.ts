@@ -1,3 +1,4 @@
+import Cauldron from '../cauldron';
 import { Player } from '../player';
 import { Token, TokenType, TokenValue } from './token';
 
@@ -5,8 +6,8 @@ class Spider extends Token {
     /**
      * If any of the last two tokens were spiders gain a ruby (per spider).
      */
-    public static onScored(player: Player): Player {
-        const cauldronTokens = player.cauldron.tokens;
+    public static onScored(cauldron: Cauldron, player: Player): Player {
+        const cauldronTokens = cauldron.tokens;
 
         const lastTwoTokens = cauldronTokens.slice(cauldronTokens.length - 2, cauldronTokens.length + 2);
 

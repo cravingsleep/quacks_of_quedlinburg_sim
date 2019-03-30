@@ -1,4 +1,5 @@
 import shuffle from 'fisher-yates-shuffle';
+import Cauldron from '../cauldron';
 import { Player } from '../player';
 import { Token, TokenType, TokenValue } from './token';
 
@@ -19,12 +20,12 @@ class CrowSkull extends Token {
     /**
      * The crow skull on placing allows drawing some tokens to place.
      */
-    public onPlace(player: Player): Player {
+    public onPlace(bag: Token[], cauldron: Cauldron): { bag: Token[], cauldron: Cauldron } {
         // grab the amount of tokens to draw
         const tokensToDraw = CrowSkull.TOKEN_DRAWS[this.value];
 
         // the tokens taken from the bag
-        const drawnTokens = shuffle(player.bag).slice(0, tokensToDraw);
+        const drawnTokens = shuffle(bag).slice(0, tokensToDraw);
 
         // TODO improve this strategy
         // take the highest value chip which is not a cherry bomb
@@ -38,11 +39,11 @@ class CrowSkull extends Token {
                 }
             }, drawnTokens[0]);
 
-        const newCauldron = player.cauldron.placeToken(placedToken);
+        const newCauldron = cauldron.placeToken(bag, placedToken);
 
-        const newBag = player.bag.splice(player.bag.indexOf(placedToken), 1);
+        const newBag = bag.splice(bag.indexOf(placedToken), 1);
 
-        return new Player(player.colour, player.bag, player.cauldron, player.rubies);
+        return { bag: newBag, cauldron: newCauldron.cauldron };
     }
 }
 

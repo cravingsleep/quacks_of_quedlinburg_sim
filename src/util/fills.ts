@@ -19,4 +19,11 @@ function range(upto: number): number[] {
     return [...Array(upto).keys()];
 }
 
-export { count, choose, range };
+/**
+ * Returns the tail of an array.
+ */
+function tail<T>(arr: T[]): T[] {
+    return arr.slice(1, arr.length);
+}
+
+export { count, choose, range, tail };

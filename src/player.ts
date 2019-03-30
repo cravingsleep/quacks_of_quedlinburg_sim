@@ -3,6 +3,9 @@ import CherryBomb from './tokens/cherryBomb';
 import Pumpkin from './tokens/pumpkin';
 import Spider from './tokens/spider';
 import { Token } from './tokens/token';
+import { tail } from './util/fills';
+
+const shuffle = require('fisher-yates-shuffle');
 
 /**
  * The different types of colour a player can be.
@@ -37,21 +40,52 @@ class Player {
     public readonly bag: Token[];
 
     /**
-     * The players cauldron.
-     */
-    public readonly cauldron: Cauldron;
-
-    /**
      * The amount of rubies the player holds.
      */
     public readonly rubies: number;
 
+    /**
+     * The position of the teardrop.
+     */
+    public readonly teardrop: number;
+
+    /**
+     * The position of the rat tail.
+     */
+    public readonly ratTails: number;
+
     constructor(colour: Colour, bag: Token[] = Player.STARTING_BAG,
-                cauldron: Cauldron = new Cauldron(), rubies: number = 0) {
+                rubies: number = 0, teardrop: number = 0, ratTails: number = 0) {
         this.colour = colour;
         this.bag = bag;
-        this.cauldron = cauldron;
         this.rubies = rubies;
+        this.teardrop = teardrop;
+        this.ratTails = ratTails;
+    }
+
+    /**
+     * Plays a round, creating a cauldron.
+     */
+    public playRound(): Cauldron {
+        // shuffle the bag
+        const shuffledBag = shuffle(this.bag);
+
+        // create a blank cauldron
+        const startingCauldron = new Cauldron();
+
+        // play tokens as long as it isn't risky
+        const plays = shuffledBag.reduce(({ bag, cauldron }, currentToken) => {
+            if (cauldron.nextMoveRisky(bag)) {
+                return {
+                    bag,
+                    cauldron
+                };
+            } else {
+                return cauldron.placeToken(tail(bag), currentToken);
+            }
+        }, { bag: shuffledBag, cauldron: startingCauldron });
+
+        return plays.cauldron;
     }
 
     /**
@@ -60,14 +94,14 @@ class Player {
     public addTokenToBag(token: Token): Player {
         const newBag = this.bag.concat(token);
 
-        return new Player(this.colour, newBag, this.cauldron, this.rubies);
+        return new Player(this.colour, newBag, this.rubies, this.teardrop, this.ratTails);
     }
 
     /**
      * Adds rubies to the player.
      */
     public addRubies(rubies: number): Player {
-        return new Player(this.colour, this.bag, this.cauldron, this.rubies + rubies);
+        return new Player(this.colour, this.bag, this.rubies + rubies, this.teardrop, this.ratTails);
     }
 }
 

@@ -49,8 +49,8 @@ abstract class Token {
     /**
      * Some tokens can alter the cauldron on placement.
      */
-    public onPlace(player: Player): Player {
-        return player;
+    public onPlace(bag: Token[], cauldron: Cauldron): { bag: Token[], cauldron: Cauldron } {
+        return { bag, cauldron };
     }
 }
 

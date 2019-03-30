@@ -40,20 +40,8 @@ class Cauldron {
      */
     public readonly tokens: Token[];
 
-    /**
-     * The position of the teardrop.
-     */
-    public readonly teardrop: number;
-
-    /**
-     * The position of the rat tail.
-     */
-    public readonly ratTails: number;
-
-    constructor(tokens: Token[] = [], teardrop: number = 0, ratTails: number = 0) {
+    constructor(tokens: Token[] = []) {
         this.tokens = tokens;
-        this.teardrop = teardrop;
-        this.ratTails = ratTails;
     }
 
     /**
@@ -73,8 +61,8 @@ class Cauldron {
     /**
      * Returns a new cauldron with a placed token.
      */
-    public placeToken(token: Token): Cauldron {
-        return new Cauldron(this.tokens.concat(token), this.teardrop, this.ratTails);
+    public placeToken(bag: Token[], token: Token): {bag: Token[], cauldron: Cauldron} {
+        return token.onPlace(bag, new Cauldron(this.tokens.concat(token)));
     }
 
     private cherryBombValues(tokens: Token[]): TokenValue[] {

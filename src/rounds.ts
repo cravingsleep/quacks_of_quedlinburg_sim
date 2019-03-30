@@ -55,4 +55,24 @@ const rounds: IRound[] = [
             return player.addTokenToBag(new CherryBomb(1));
         }
     },
+    {
+        availableTokens: DEFAULT_TOKENS_AVAILABLE.concat([TokenType.Mandrake, TokenType.GhostBreath]),
+        effectPlayer(player: Player): Player {
+            return player;
+        }
+    },
+    {
+        availableTokens: DEFAULT_TOKENS_AVAILABLE.concat([TokenType.Mandrake, TokenType.GhostBreath]),
+        effectPlayer(player: Player): Player {
+            return player;
+        }
+    },
+    {
+        availableTokens: DEFAULT_TOKENS_AVAILABLE.concat([TokenType.Mandrake, TokenType.GhostBreath]),
+        effectPlayer(player: Player): Player {
+            return player;
+        }
+    },
 ];
+
+export default rounds;
