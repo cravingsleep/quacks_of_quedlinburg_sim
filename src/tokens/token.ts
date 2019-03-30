@@ -42,7 +42,7 @@ abstract class Token {
     /**
      * How many spaces forward the token goes.
      */
-    public spacesForward(cauldron: Cauldron): number {
+    public spacesForward(cauldronTokens: Token[]): number {
         return this.value;
     }
 

@@ -7,8 +7,8 @@ class Mushroom extends Token {
         super(TokenType.Mushroom, value);
     }
 
-    public spacesForward(cauldron: Cauldron): number {
-        const pumpkins = count(cauldron.tokens, token => token.tokenType === TokenType.Pumpkin);
+    public spacesForward(cauldronTokens: Token[]): number {
+        const pumpkins = count(cauldronTokens, token => token.tokenType === TokenType.Pumpkin);
 
         if (pumpkins === 1 || pumpkins === 2) {
             return this.value + 1;

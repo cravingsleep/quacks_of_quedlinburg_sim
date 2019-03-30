@@ -45,6 +45,22 @@ class Cauldron {
     }
 
     /**
+     * How much score this cauldron has won.
+     */
+    public score(teardrop: number, ratTails: number): number {
+        return this.tokens.reduce((score, token, tokensPlaced) => {
+            return score + token.spacesForward(this.tokens.slice(0, tokensPlaced));
+        }, teardrop + ratTails);
+    }
+
+    /**
+     * How many victory points this cauldron wins.
+     */
+    public victoryPoints(score: number): number {
+        return Cauldron.VICTORY_POINT_SCALE[score];
+    }
+
+    /**
      * If one more chip is drawn can the pot explode?
      */
     public nextMoveRisky(bag: Token[]): boolean {
@@ -61,7 +77,7 @@ class Cauldron {
     /**
      * Returns a new cauldron with a placed token.
      */
-    public placeToken(bag: Token[], token: Token): {bag: Token[], cauldron: Cauldron} {
+    public placeToken(bag: Token[], token: Token): { bag: Token[], cauldron: Cauldron } {
         return token.onPlace(bag, new Cauldron(this.tokens.concat(token)));
     }
 

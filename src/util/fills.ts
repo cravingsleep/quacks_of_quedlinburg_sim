@@ -13,17 +13,10 @@ function choose<T>(arr: T[]): T {
 }
 
 /**
- * Generates a range of numbers.
- */
-function range(upto: number): number[] {
-    return [...Array(upto).keys()];
-}
-
-/**
  * Returns the tail of an array.
  */
 function tail<T>(arr: T[]): T[] {
     return arr.slice(1, arr.length);
 }
 
-export { count, choose, range, tail };
+export { count, choose, tail };
