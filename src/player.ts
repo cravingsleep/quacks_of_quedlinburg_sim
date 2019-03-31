@@ -20,7 +20,7 @@ class Player {
     /**
      * A players starting bag.
      */
-    private static readonly STARTING_BAG: Token[] = [
+    public static readonly STARTING_BAG: Token[] = [
         new Spider(1),
         new Pumpkin(),
         new CherryBomb(3),
@@ -53,13 +53,23 @@ class Player {
      */
     public readonly ratTails: number;
 
-    constructor(colour: Colour, bag: Token[] = Player.STARTING_BAG,
-                rubies: number = 0, teardrop: number = 0, ratTails: number = 0) {
+    /**
+     * How many victory points the player has.
+     */
+    public readonly victoryPoints: number;
+
+    constructor(colour: Colour,
+                bag: Token[] = Player.STARTING_BAG,
+                rubies: number,
+                teardrop: number,
+                ratTails: number,
+                victoryPoints: number) {
         this.colour = colour;
         this.bag = bag;
         this.rubies = rubies;
         this.teardrop = teardrop;
         this.ratTails = ratTails;
+        this.victoryPoints = victoryPoints;
     }
 
     /**
@@ -93,14 +103,31 @@ class Player {
     public addTokenToBag(token: Token): Player {
         const newBag = this.bag.concat(token);
 
-        return new Player(this.colour, newBag, this.rubies, this.teardrop, this.ratTails);
+        return new Player(this.colour, newBag, this.rubies, this.teardrop, this.ratTails, this.victoryPoints);
     }
 
     /**
      * Adds rubies to the player.
      */
     public addRubies(rubies: number): Player {
-        return new Player(this.colour, this.bag, this.rubies + rubies, this.teardrop, this.ratTails);
+        return new Player(this.colour, this.bag, this.rubies + rubies,
+            this.teardrop, this.ratTails, this.victoryPoints);
+    }
+
+    /**
+     * Adds victory points to the player.
+     */
+    public addVictoryPoints(victoryPoints: number): Player {
+        return new Player(this.colour, this.bag, this.rubies,
+            this.teardrop, this.ratTails, this.victoryPoints + victoryPoints);
+    }
+
+    /**
+     * Moves the teardrop forward one.
+     */
+    public moveTeardropForward(): Player {
+        return new Player(this.colour, this.bag, this.rubies,
+            this.teardrop + 1, this.ratTails, this.victoryPoints);
     }
 }
 

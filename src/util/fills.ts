@@ -19,4 +19,11 @@ function tail<T>(arr: T[]): T[] {
     return arr.slice(1, arr.length);
 }
 
-export { count, choose, tail };
+/**
+ * Rolls a random dice.
+ */
+function randDiceRoll(): number {
+    return Math.round(Math.random() * 6);
+}
+
+export { count, choose, tail, randDiceRoll };

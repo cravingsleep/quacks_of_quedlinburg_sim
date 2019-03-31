@@ -3,10 +3,10 @@ import { Colour, Player } from './player';
 import rounds from './rounds';
 
 // set up the game
-const redPlayer = new Player(Colour.RED);
-const greenPlayer = new Player(Colour.GREEN);
-const bluePlayer = new Player(Colour.BLUE);
-const yellowPlayer = new Player(Colour.YELLOW);
+const redPlayer = new Player(Colour.RED, Player.STARTING_BAG, 0, 0, 0, 0);
+const greenPlayer = new Player(Colour.GREEN, Player.STARTING_BAG, 0, 0, 0, 0);
+const bluePlayer = new Player(Colour.BLUE, Player.STARTING_BAG, 0, 0, 0, 0);
+const yellowPlayer = new Player(Colour.YELLOW, Player.STARTING_BAG, 0, 0, 0, 0);
 
 const allPlayers = [redPlayer, greenPlayer, bluePlayer, yellowPlayer];
 
