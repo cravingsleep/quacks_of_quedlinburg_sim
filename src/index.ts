@@ -17,7 +17,7 @@ rounds.slice(0, 1).reduce((players, round, roundNumber) => {
     // each player plays there cauldron
     const playerCauldrons: { [colour: number]: Cauldron } = roundedPlayers
         .reduce((cauldronMap, player) => {
-            return Object.assign({}, cauldronMap, { [player.colour]: player.playRound() });
+            return {...cauldronMap, [player.colour]: player.playRound() };
         }, {});
 
     Object.entries(playerCauldrons).forEach(([playerColour, cauldron]) => {
