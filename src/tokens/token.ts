@@ -25,19 +25,12 @@ type TokenValue = 1 | 2 | 3 | 4;
  */
 abstract class Token {
     /**
-     * The name of the token.
+     * @param tokenType - the type of the token
+     * @param value - the value of the token
      */
-    public readonly tokenType: TokenType;
-
-    /**
-     * The value on the token
-     */
-    public readonly value: TokenValue;
-
-    constructor(tokenType: TokenType, value: TokenValue) {
-        this.tokenType = tokenType;
-        this.value = value;
-    }
+    constructor(
+        public readonly tokenType: TokenType, 
+        public readonly value: TokenValue) { }
 
     /**
      * How many spaces forward the token goes.
