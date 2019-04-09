@@ -1,5 +1,6 @@
 import CherryBomb from './tokens/cherryBomb';
 import { Token, TokenValue } from './tokens/token';
+import { Colour } from './player';
 
 class Cauldron {
     /**
@@ -36,21 +37,23 @@ class Cauldron {
     ];
 
     /**
-     * The tokens in the cauldron.
+     * @param colour - the colour of the cauldron
+     * @param teardrop - how many teardrops this cauldron has
+     * @param ratTails - how many rat tails this cauldron has
+     * @param tokens - the tokens in the cauldron
      */
-    public readonly tokens: Token[];
-
-    constructor(tokens: Token[] = []) {
-        this.tokens = tokens;
-    }
+    constructor(public readonly colour: Colour,
+                public readonly teardrop: number,
+                public readonly ratTails: number,
+                public readonly tokens: Token[] = []) { }
 
     /**
      * How much score this cauldron has won.
      */
-    public score(teardrop: number, ratTails: number): number {
+    public score(): number {
         return this.tokens.reduce((score, token, tokensPlaced) => {
             return score + token.spacesForward(this.tokens.slice(0, tokensPlaced));
-        }, teardrop + ratTails);
+        }, this.teardrop + this.ratTails);
     }
 
     /**
@@ -78,7 +81,7 @@ class Cauldron {
      * Returns a new cauldron with a placed token.
      */
     public placeToken(bag: Token[], token: Token): { bag: Token[], cauldron: Cauldron } {
-        return token.onPlace(bag, new Cauldron(this.tokens.concat(token)));
+        return token.onPlace(bag, new Cauldron(this.colour, this.teardrop, this.ratTails, this.tokens.concat(token)));
     }
 
     private cherryBombValues(tokens: Token[]): TokenValue[] {

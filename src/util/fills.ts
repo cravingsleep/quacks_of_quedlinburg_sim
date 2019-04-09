@@ -26,4 +26,13 @@ function randDiceRoll(): number {
     return Math.round(Math.random() * 6);
 }
 
-export { count, choose, tail, randDiceRoll };
+/**
+ * Finds the max item in an array given a predicate.
+ */
+function maxBy<T>(arr: T[], predicate: (t: T) => number) {
+    return arr.reduce((currentMax, n) => {
+        return predicate(n) > predicate(currentMax) ? n : currentMax;
+    }, arr[0]);
+}
+
+export { count, choose, tail, randDiceRoll, maxBy };

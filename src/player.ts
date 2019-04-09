@@ -29,58 +29,30 @@ class Player {
     ];
 
     /**
-     * The colour of the player board.
+     * 
+     * @param colour - The colour of the player board.
+     * @param bag - The players bag.
+     * @param rubies - The amount of rubies the player holds.
+     * @param teardrop - The position of the teardrop.
+     * @param victoryPoints - How many victory points the player has.
      */
-    public readonly colour: Colour;
-
-    /**
-     * The players bag.
-     */
-    public readonly bag: Token[];
-
-    /**
-     * The amount of rubies the player holds.
-     */
-    public readonly rubies: number;
-
-    /**
-     * The position of the teardrop.
-     */
-    public readonly teardrop: number;
-
-    /**
-     * The position of the rat tail.
-     */
-    public readonly ratTails: number;
-
-    /**
-     * How many victory points the player has.
-     */
-    public readonly victoryPoints: number;
-
-    constructor(colour: Colour,
-                bag: Token[] = Player.STARTING_BAG,
-                rubies: number,
-                teardrop: number,
-                ratTails: number,
-                victoryPoints: number) {
-        this.colour = colour;
-        this.bag = bag;
-        this.rubies = rubies;
-        this.teardrop = teardrop;
-        this.ratTails = ratTails;
-        this.victoryPoints = victoryPoints;
-    }
+    constructor(public readonly colour: Colour,
+                public readonly bag: Token[] = Player.STARTING_BAG,
+                public readonly rubies: number,
+                public readonly teardrop: number,
+                public readonly victoryPoints: number) { }
 
     /**
      * Plays a round, creating a cauldron.
+     *
+     * @param ratTails - the amount of rat tails the cauldron starts with
      */
-    public playRound(): Cauldron {
+    public playRound(ratTails: number): Cauldron {
         // shuffle the bag
         const shuffledBag = shuffle(this.bag);
 
         // create a blank cauldron
-        const startingCauldron = new Cauldron();
+        const startingCauldron = new Cauldron(this.colour, this.teardrop, ratTails);
 
         // play tokens as long as it isn't risky
         const plays = shuffledBag.reduce(({ bag, cauldron }, currentToken) => {
@@ -103,7 +75,7 @@ class Player {
     public addTokenToBag(token: Token): Player {
         const newBag = this.bag.concat(token);
 
-        return new Player(this.colour, newBag, this.rubies, this.teardrop, this.ratTails, this.victoryPoints);
+        return new Player(this.colour, newBag, this.rubies, this.teardrop, this.victoryPoints);
     }
 
     /**
@@ -111,7 +83,7 @@ class Player {
      */
     public addRubies(rubies: number): Player {
         return new Player(this.colour, this.bag, this.rubies + rubies,
-            this.teardrop, this.ratTails, this.victoryPoints);
+            this.teardrop, this.victoryPoints);
     }
 
     /**
@@ -119,7 +91,7 @@ class Player {
      */
     public addVictoryPoints(victoryPoints: number): Player {
         return new Player(this.colour, this.bag, this.rubies,
-            this.teardrop, this.ratTails, this.victoryPoints + victoryPoints);
+            this.teardrop, this.victoryPoints + victoryPoints);
     }
 
     /**
@@ -127,7 +99,7 @@ class Player {
      */
     public moveTeardropForward(): Player {
         return new Player(this.colour, this.bag, this.rubies,
-            this.teardrop + 1, this.ratTails, this.victoryPoints);
+            this.teardrop + 1, this.victoryPoints);
     }
 }
 

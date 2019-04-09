@@ -29,7 +29,7 @@ abstract class Token {
      * @param value - the value of the token
      */
     constructor(
-        public readonly tokenType: TokenType, 
+        public readonly tokenType: TokenType,
         public readonly value: TokenValue) { }
 
     /**
